@@ -17,8 +17,6 @@
             --soft-rose-gold: #EECED2;
             --black-burgundy: #22000A;
             --main-bg: #2E0115;
-            --light-text: #EECED2;
-            --medium-rose: #8B2D50;
         }
 
         * {
@@ -307,7 +305,6 @@
         }
 
         .hero-title span {
-            color: var(--rose-pink);
             font-style: italic;
         }
 
@@ -417,8 +414,9 @@
             font-size: 11px;
             letter-spacing: 5px;
             text-transform: uppercase;
-            color: var(--rose-pink);
+            color: var(--soft-rose-gold);
             margin-bottom: 20px;
+            opacity: 0.7;
         }
 
         .section-title {
@@ -487,75 +485,49 @@
             opacity: 0.75;
         }
 
-        /* Special Products Grid */
+        /* Products Grid - ORIGINAL 11 PRODUCTS WITH NAMES AND PRICES */
         .products-section {
             background: var(--deep-burgundy);
         }
 
-        .products-showcase {
+        .products-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
         }
 
-        .product-item {
+        .product-card {
             position: relative;
             overflow: hidden;
+            background: var(--dark-wine);
+            border: 1px solid rgba(238, 206, 210, 0.08);
             transition: all 0.4s ease;
         }
 
-        .product-item:hover {
-            transform: translateY(-8px);
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(238, 206, 210, 0.2);
         }
 
-        .product-item:nth-child(1) {
-            grid-column: span 2;
-            grid-row: span 2;
-        }
-
-        .product-item:nth-child(5) {
-            grid-column: span 2;
-        }
-
-        .product-item:nth-child(10) {
-            grid-column: span 2;
-        }
-
-        .product-visual {
+        .product-image {
             position: relative;
-            height: 100%;
-            min-height: 280px;
+            height: 320px;
             overflow: hidden;
         }
 
-        .product-item:nth-child(1) .product-visual {
-            min-height: 580px;
-        }
-
-        .product-visual img {
+        .product-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.8s ease;
         }
 
-        .product-item:hover .product-visual img {
+        .product-card:hover .product-image img {
             transform: scale(1.08);
         }
 
-        .product-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(46, 1, 21, 0.9) 0%, rgba(46, 1, 21, 0.3) 50%, transparent 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 30px;
-            transition: all 0.4s ease;
-        }
-
-        .product-item:hover .product-overlay {
-            background: linear-gradient(to top, rgba(46, 1, 21, 0.95) 0%, rgba(46, 1, 21, 0.5) 60%, rgba(46, 1, 21, 0.2) 100%);
+        .product-info {
+            padding: 25px;
         }
 
         .product-name {
@@ -566,19 +538,15 @@
             margin-bottom: 10px;
         }
 
-        .product-item:nth-child(1) .product-name {
-            font-size: 32px;
-        }
-
         .product-price {
             font-size: 20px;
             color: var(--soft-rose-gold);
             font-weight: 500;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             letter-spacing: 1px;
         }
 
-        .product-order-btn {
+        .product-btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -591,16 +559,81 @@
             text-transform: uppercase;
             transition: all 0.3s ease;
             border: 1px solid var(--rose-pink);
-            align-self: flex-start;
         }
 
-        .product-order-btn:hover {
+        .product-btn:hover {
             background: transparent;
             border-color: var(--soft-rose-gold);
         }
 
-        body[dir="rtl"] .product-order-btn {
-            align-self: flex-end;
+        /* Design Showroom - NEW 19 IMAGES WITHOUT NAMES OR PRICES */
+        .showroom-section {
+            background: var(--dark-wine);
+            padding: 120px 60px;
+        }
+
+        .showroom-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .showroom-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            border: 1px solid rgba(238, 206, 210, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .showroom-item:nth-child(1),
+        .showroom-item:nth-child(5),
+        .showroom-item:nth-child(9),
+        .showroom-item:nth-child(13) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .showroom-item:hover {
+            transform: scale(1.02);
+            border-color: rgba(238, 206, 210, 0.2);
+        }
+
+        .showroom-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .showroom-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .showroom-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(46, 1, 21, 0);
+            transition: background 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .showroom-item:hover .showroom-overlay {
+            background: rgba(46, 1, 21, 0.3);
+        }
+
+        .showroom-overlay::after {
+            content: '✦';
+            font-size: 24px;
+            color: var(--soft-rose-gold);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .showroom-item:hover .showroom-overlay::after {
+            opacity: 0.8;
         }
 
         /* Custom Design Section */
@@ -686,7 +719,7 @@
 
         /* Why Choose Section */
         .why-choose {
-            background: var(--dark-wine);
+            background: var(--deep-burgundy);
         }
 
         .features-grid {
@@ -713,13 +746,14 @@
             width: 70px;
             height: 70px;
             margin: 0 auto 25px;
-            border: 1px solid var(--rose-pink);
+            border: 1px solid var(--soft-rose-gold);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--soft-rose-gold);
             font-size: 28px;
+            opacity: 0.7;
         }
 
         .feature-title {
@@ -739,7 +773,7 @@
 
         /* Occasions */
         .occasions {
-            background: var(--deep-burgundy);
+            background: var(--dark-wine);
         }
 
         .occasions-grid {
@@ -802,7 +836,7 @@
 
         /* Contact Section */
         .contact {
-            background: var(--dark-wine);
+            background: var(--deep-burgundy);
             text-align: center;
         }
 
@@ -819,8 +853,9 @@
             font-size: 11px;
             letter-spacing: 4px;
             text-transform: uppercase;
-            color: var(--rose-pink);
+            color: var(--soft-rose-gold);
             margin-bottom: 12px;
+            opacity: 0.7;
         }
 
         .contact-value {
@@ -864,8 +899,9 @@
             font-size: 12px;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: var(--rose-pink);
+            color: var(--soft-rose-gold);
             margin-bottom: 25px;
+            opacity: 0.7;
         }
 
         .footer-links a {
@@ -998,30 +1034,19 @@
         }
 
         /* Responsive */
-        @media (max-width: 1200px) {
-            .products-showcase {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .product-item:nth-child(1) {
-                grid-column: span 2;
-                grid-row: span 1;
-            }
-            .product-item:nth-child(1) .product-visual {
-                min-height: 350px;
-            }
-        }
-
         @media (max-width: 1024px) {
             .hero-title { font-size: 48px; }
             .hero-logo { width: 260px; }
             .about { grid-template-columns: 1fr; gap: 50px; }
-            .products-showcase { grid-template-columns: repeat(2, 1fr); }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .showroom-grid { grid-template-columns: repeat(3, 1fr); }
             .custom-design { grid-template-columns: 1fr; }
             .custom-design-image { height: 300px; }
             .features-grid { grid-template-columns: repeat(2, 1fr); }
             .occasions-grid { grid-template-columns: repeat(2, 1fr); }
             .footer-grid { grid-template-columns: 1fr; gap: 40px; }
             .section { padding: 80px 40px; }
+            .showroom-section { padding: 80px 40px; }
         }
 
         @media (max-width: 768px) {
@@ -1037,15 +1062,16 @@
             .hero-buttons { flex-direction: column; align-items: center; }
             .btn-primary, .btn-secondary, .btn-whatsapp { width: 100%; justify-content: center; }
             .section { padding: 60px 25px; }
+            .showroom-section { padding: 60px 25px; }
             .section-title { font-size: 34px; }
-            .products-showcase { grid-template-columns: 1fr; }
-            .product-item:nth-child(1),
-            .product-item:nth-child(5),
-            .product-item:nth-child(10) {
+            .products-grid { grid-template-columns: 1fr; }
+            .showroom-grid { grid-template-columns: repeat(2, 1fr); }
+            .showroom-item:nth-child(1),
+            .showroom-item:nth-child(5),
+            .showroom-item:nth-child(9),
+            .showroom-item:nth-child(13) {
                 grid-column: span 1;
-            }
-            .product-item:nth-child(1) .product-visual {
-                min-height: 300px;
+                grid-row: span 1;
             }
             .features-grid { grid-template-columns: 1fr; }
             .occasions-grid { grid-template-columns: 1fr; }
@@ -1078,6 +1104,7 @@
             <a href="#home" data-en="Home" data-ar="الرئيسية">Home</a>
             <a href="#about" data-en="About" data-ar="عن المتجر">About</a>
             <a href="#collection" data-en="Collection" data-ar="المجموعة">Collection</a>
+            <a href="#showroom" data-en="Showroom" data-ar="معرض التصاميم">Showroom</a>
             <a href="#custom" data-en="Custom Design" data-ar="تصميم مخصص">Custom Design</a>
             <a href="#contact" data-en="Contact" data-ar="تواصل معنا">Contact</a>
         </div>
@@ -1095,6 +1122,7 @@
         <a href="#home" onclick="toggleMobileMenu()" data-en="Home" data-ar="الرئيسية">Home</a>
         <a href="#about" onclick="toggleMobileMenu()" data-en="About" data-ar="عن المتجر">About</a>
         <a href="#collection" onclick="toggleMobileMenu()" data-en="Collection" data-ar="المجموعة">Collection</a>
+        <a href="#showroom" onclick="toggleMobileMenu()" data-en="Showroom" data-ar="معرض التصاميم">Showroom</a>
         <a href="#custom" onclick="toggleMobileMenu()" data-en="Custom Design" data-ar="تصميم مخصص">Custom Design</a>
         <a href="#contact" onclick="toggleMobileMenu()" data-en="Contact" data-ar="تواصل معنا">Contact</a>
         <a href="https://wa.me/96178862543" target="_blank" data-en="Order on WhatsApp" data-ar="اطلب عبر واتساب">Order on WhatsApp</a>
@@ -1122,9 +1150,9 @@
     <!-- About Section -->
     <section class="section about" id="about">
         <div class="about-image-grid reveal">
-            <img src="https://i.imgur.com/pPwT8HU.jpeg" alt="Flowers">
-            <img src="https://i.imgur.com/65triWN.jpeg" alt="Flowers">
-            <img src="https://i.imgur.com/di3XWaV.jpeg" alt="Flowers">
+            <img src="https://i.imgur.com/duY25QF.jpeg" alt="Flowers">
+            <img src="https://i.imgur.com/rQ5uMap.jpeg" alt="Flowers">
+            <img src="https://i.imgur.com/zK40gZt.jpeg" alt="Flowers">
         </div>
         <div class="about-content reveal">
             <div class="section-label" data-en="About Us" data-ar="من نحن">About Us</div>
@@ -1134,7 +1162,7 @@
         </div>
     </section>
 
-    <!-- Collection Section -->
+    <!-- Collection Section - ORIGINAL 11 PRODUCTS -->
     <section class="section products-section" id="collection">
         <div class="section-header reveal">
             <div class="section-label" data-en="Our Collection" data-ar="مجموعتنا">Our Collection</div>
@@ -1142,8 +1170,21 @@
             <div class="decorative-line"></div>
             <p class="section-subtitle" data-en="Each arrangement is a unique creation, designed to bring beauty and emotion to your special moments." data-ar="كل تنسيق هو إبداع فريد، صمم ليحمل الجمال والعاطفة إلى لحظاتك المميزة.">Each arrangement is a unique creation, designed to bring beauty and emotion to your special moments.</p>
         </div>
-        <div class="products-showcase" id="productsShowcase">
+        <div class="products-grid" id="productsGrid">
             <!-- Products will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Design Showroom - NEW 19 IMAGES (NO PRICES, NO NAMES) -->
+    <section class="showroom-section" id="showroom">
+        <div class="section-header reveal">
+            <div class="section-label" data-en="Design Showroom" data-ar="معرض التصاميم">Design Showroom</div>
+            <h2 class="section-title" data-en="Inspiration Gallery" data-ar="معرض الإلهام">Inspiration Gallery</h2>
+            <div class="decorative-line"></div>
+            <p class="section-subtitle" data-en="Explore our portfolio of floral designs. See something you love? Send it to us and we'll create it just for you." data-ar="استعرض مجموعتنا من التصاميم الزهرية. أعجبك تصميم؟ أرسله إلينا وسننفذه خصيصًا لك.">Explore our portfolio of floral designs. See something you love? Send it to us and we'll create it just for you.</p>
+        </div>
+        <div class="showroom-grid" id="showroomGrid">
+            <!-- Showroom images will be generated by JavaScript -->
         </div>
     </section>
 
@@ -1151,13 +1192,13 @@
     <section class="custom-design" id="custom">
         <div class="custom-design-bg"></div>
         <div class="custom-design-image">
-            <img src="https://i.imgur.com/pPwT8HU.jpeg" alt="Custom Flowers">
+            <img src="https://i.imgur.com/duY25QF.jpeg" alt="Custom Flowers">
         </div>
         <div class="custom-design-content reveal">
             <div class="section-label" data-en="Your Vision, Our Craft" data-ar="رؤيتك، إبداعنا">Your Vision, Our Craft</div>
-            <h2 data-en="Dream It. Send It.<br>We'll Create It." data-ar="تخيّل التصميم، أرسله إلينا،<br>ونحن ننفّذه!">Dream It. Send It.<br>We'll Create It.</h2>
-            <p data-en="Fell in love with a floral design you saw somewhere? Send it to us! Whether it's an inspiration from Pinterest, Instagram, or your own imagination, we can create a custom arrangement just for you. Your imagination is our inspiration." data-ar="أعجبك تصميم ورد رأيته على الإنترنت؟ أرسله إلينا! سواء وجدته على Pinterest أو Instagram أو كان من وحي خيالك، يمكننا تنفيذ أي تصميم تختاره خصيصًا لك. ذوقك هو مصدر إلهامنا!">Fell in love with a floral design you saw somewhere? Send it to us! Whether it's an inspiration from Pinterest, Instagram, or your own imagination, we can create a custom arrangement just for you. Your imagination is our inspiration.</p>
-            <a href="https://wa.me/96178862543?text=Hello%20VELVET%20ROSE!%20I%20would%20like%20to%20order%20a%20custom%20floral%20arrangement.%20Let%20me%20share%20my%20inspiration%20with%20you." target="_blank" class="btn-custom" data-en="Create My Custom Bouquet" data-ar="اطلب تنسيقك الخاص">Create My Custom Bouquet</a>
+            <h2>Dream It. Send It.<br>We'll Create It.</h2>
+            <p>Fell in love with a floral design you saw somewhere? Send it to us! Whether it's an inspiration from Pinterest, Instagram, or your own imagination, we can create a custom arrangement just for you. Your imagination is our inspiration.</p>
+            <a href="https://wa.me/96178862543?text=Hello%20VELVET%20ROSE!%20I%20would%20like%20to%20order%20a%20custom%20floral%20arrangement.%20Let%20me%20share%20my%20inspiration%20with%20you." target="_blank" class="btn-custom">Create My Custom Bouquet</a>
         </div>
     </section>
 
@@ -1181,12 +1222,12 @@
             <div class="feature-card reveal">
                 <div class="feature-icon">❀</div>
                 <h3 class="feature-title" data-en="Beautifully Presented" data-ar="تقديم أنيق">Beautifully Presented</h3>
-                <p class="feature-desc" data-en="Premium packaging and presentation ensure your flowers arrive as beautifully as when they were crafted." data-ar="التغليف المتميز يضمن وصول ورودك بنفس الجمال الذي صُنعت به.">Premium packaging and presentation ensure your flowers arrive as beautifully as when they were crafted.</p>
+                <p class="feature-desc" data-en="Premium packaging and presentation ensure your flowers arrive as beautifully as when they were crafted." data-ar="التغليف المتميز يضمن وصول ورودك بنفس الجميل الذي صُنعت به.">Premium packaging and presentation ensure your flowers arrive as beautifully as when they were crafted.</p>
             </div>
             <div class="feature-card reveal">
                 <div class="feature-icon">✾</div>
                 <h3 class="feature-title" data-en="Special Moments" data-ar="لحظات خاصة">Special Moments</h3>
-                <p class="feature-desc" data-en="From intimate gestures to grand celebrations, we make every occasion unforgettable with our floral artistry." data-ar="من اللحظات الحميمة إلى الاحتفالات الكبيرة، نجعل كل مناسبة لا تُنسى بإبداعنا الزهري.">From intimate gestures to grand celebrations, we make every occasion unforgettable with our floral artistry.</p>
+                <p class="feature-desc" data-en="From intimate gestures to grand celebrations, we make every occasion unforgettable with our floral artistry." data-ar="من اللحظات الحميمة إلى ال�تفالات الكبيرة، نجعل كل مناسبة لا تُنسى بإبداعنا الزهري.">From intimate gestures to grand celebrations, we make every occasion unforgettable with our floral artistry.</p>
             </div>
         </div>
     </section>
@@ -1199,42 +1240,42 @@
         </div>
         <div class="occasions-grid">
             <div class="occasion-card reveal">
-                <img src="https://i.imgur.com/9vprujP.jpeg" alt="Birthdays">
+                <img src="https://i.imgur.com/nKC622m.jpeg" alt="Birthdays">
                 <div class="occasion-content">
                     <h3 class="occasion-title" data-en="Birthdays" data-ar="أعياد الميلاد">Birthdays</h3>
                     <div class="occasion-line"></div>
                 </div>
             </div>
             <div class="occasion-card reveal">
-                <img src="https://i.imgur.com/LAiWi39.jpeg" alt="Anniversaries">
+                <img src="https://i.imgur.com/DsZ29QD.jpeg" alt="Anniversaries">
                 <div class="occasion-content">
                     <h3 class="occasion-title" data-en="Anniversaries" data-ar="الذكرى السنوية">Anniversaries</h3>
                     <div class="occasion-line"></div>
                 </div>
             </div>
             <div class="occasion-card reveal">
-                <img src="https://i.imgur.com/zOF0tph.jpeg" alt="Weddings">
+                <img src="https://i.imgur.com/lfp1p7n.jpeg" alt="Weddings">
                 <div class="occasion-content">
                     <h3 class="occasion-title" data-en="Weddings" data-ar="الأعراس">Weddings</h3>
                     <div class="occasion-line"></div>
                 </div>
             </div>
             <div class="occasion-card reveal">
-                <img src="https://i.imgur.com/29XLVLP.jpeg" alt="Romantic">
+                <img src="https://i.imgur.com/MWZHHxd.jpeg" alt="Romantic">
                 <div class="occasion-content">
                     <h3 class="occasion-title" data-en="Romantic Surprises" data-ar="مفاجآت رومانسية">Romantic Surprises</h3>
                     <div class="occasion-line"></div>
                 </div>
             </div>
             <div class="occasion-card reveal">
-                <img src="https://i.imgur.com/Zvb3Pyk.jpeg" alt="Graduations">
+                <img src="https://i.imgur.com/0qnchvh.jpeg" alt="Graduations">
                 <div class="occasion-content">
                     <h3 class="occasion-title" data-en="Graduations" data-ar="حفلات التخرج">Graduations</h3>
                     <div class="occasion-line"></div>
                 </div>
             </div>
             <div class="occasion-card reveal">
-                <img src="https://i.imgur.com/Z5ePUNV.jpeg" alt="Special">
+                <img src="https://i.imgur.com/aTyhxwg.jpeg" alt="Special">
                 <div class="occasion-content">
                     <h3 class="occasion-title" data-en="Special Celebrations" data-ar="احتفالات مميزة">Special Celebrations</h3>
                     <div class="occasion-line"></div>
@@ -1271,6 +1312,7 @@
                     <a href="#home" data-en="Home" data-ar="الرئيسية">Home</a>
                     <a href="#about" data-en="About" data-ar="عن المتجر">About</a>
                     <a href="#collection" data-en="Collection" data-ar="المجموعة">Collection</a>
+                    <a href="#showroom" data-en="Showroom" data-ar="معرض التصاميم">Showroom</a>
                     <a href="#custom" data-en="Custom Design" data-ar="تصميم مخصص">Custom Design</a>
                     <a href="#contact" data-en="Contact" data-ar="تواصل معنا">Contact</a>
                 </div>
@@ -1297,27 +1339,42 @@
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
 
     <script>
-        // Products Data - New 19 products
+        // ORIGINAL 11 PRODUCTS - With TRUE names, images, and prices
         const products = [
-            { id: 1, image: 'https://i.imgur.com/pPwT8HU.jpeg', en: 'Premium Rose Collection', ar: 'مجموعة الورد الفاخرة', price: 180, featured: true },
-            { id: 2, image: 'https://i.imgur.com/65triWN.jpeg', en: 'Elegant White Roses', ar: 'ورد أبيض أنيق', price: 120, featured: false },
-            { id: 3, image: 'https://i.imgur.com/di3XWaV.jpeg', en: 'Mixed Floral Bouquet', ar: 'باقة زهور مختلطة', price: 90, featured: false },
-            { id: 4, image: 'https://i.imgur.com/9vprujP.jpeg', en: 'Pink Rose Arrangement', ar: 'تنسيق وردي', price: 150, featured: false },
-            { id: 5, image: 'https://i.imgur.com/LAiWi39.jpeg', en: 'Luxury Wedding Bouquet', ar: 'باقة زفاف فاخرة', price: 250, featured: true },
-            { id: 6, image: 'https://i.imgur.com/zOF0tph.jpeg', en: 'Red Rose Box', ar: 'صندوق ورد أحمر', price: 100, featured: false },
-            { id: 7, image: 'https://i.imgur.com/29XLVLP.jpeg', en: 'Sunflower Delight', ar: 'متعة عباد الشمس', price: 80, featured: false },
-            { id: 8, image: 'https://i.imgur.com/Zvb3Pyk.jpeg', en: 'Purple Tulip Set', ar: 'باقة التوليب الأرجواني', price: 110, featured: false },
-            { id: 9, image: 'https://i.imgur.com/Z5ePUNV.jpeg', en: 'Spring Flower Mix', ar: 'مزيج زهور الربيع', price: 95, featured: false },
-            { id: 10, image: 'https://i.imgur.com/57ZdNc0.jpeg', en: 'Romantic Rose Bundle', ar: 'حزمة الورد الرومانسي', price: 200, featured: true },
-            { id: 11, image: 'https://i.imgur.com/lbVKE0x.jpeg', en: 'Classic White Bouquet', ar: 'باقة كلاسيكية بيضاء', price: 130, featured: false },
-            { id: 12, image: 'https://i.imgur.com/bUGsSIh.jpeg', en: 'Vibrant Flower Box', ar: 'صندوق زهور نابض بالحياة', price: 140, featured: false },
-            { id: 13, image: 'https://i.imgur.com/ZuyA7Qz.jpeg', en: 'Delicate Pink Arrangement', ar: 'تنسيق وردي رقيق', price: 125, featured: false },
-            { id: 14, image: 'https://i.imgur.com/eSLwzFi.jpeg', en: 'Royal Flower Collection', ar: 'مجموعة الزهور الملكية', price: 220, featured: true },
-            { id: 15, image: 'https://i.imgur.com/8ZxYSOJ.jpeg', en: 'Garden Fresh Bouquet', ar: 'باقة طازجة من الحديقة', price: 85, featured: false },
-            { id: 16, image: 'https://i.imgur.com/f592qV1.jpeg', en: 'Eternal Rose Box', ar: 'صندوق الورد الخالد', price: 175, featured: false },
-            { id: 17, image: 'https://i.imgur.com/EMa9Gf1.jpeg', en: 'Blossom Dream Set', ar: 'مجموعة حلم الازدهار', price: 160, featured: false },
-            { id: 18, image: 'https://i.imgur.com/IMx2o5z.jpeg', en: 'Enchanted Floral Box', ar: 'صندوق زهور مسحور', price: 145, featured: false },
-            { id: 19, image: 'https://i.imgur.com/wKpEUfV.jpeg', en: 'Signature Velvet Rose', ar: 'فيليت روز المميز', price: 195, featured: true }
+            { id: 1, image: 'https://i.imgur.com/duY25QF.jpeg', en: '200 Natural Roses with Gypsophila', ar: '200 وردة طبيعية مع الجيبسوفيلا', price: 230 },
+            { id: 2, image: 'https://i.imgur.com/lfp1p7n.jpeg', en: '60 Natural Roses with a Letter', ar: '60 وردة طبيعية مع حرف', price: 70 },
+            { id: 3, image: 'https://i.imgur.com/nKC622m.jpeg', en: 'Flower Bouquet with Gypsophila, Lilies & Chrysanthemums', ar: 'باقة ورد مع الجيبسوفيلا والليلي والكريزانتيم', price: 60 },
+            { id: 4, image: 'https://i.imgur.com/zK40gZt.jpeg', en: '50 Colorful Roses Bouquet', ar: 'باقة من 50 وردة ملوّنة', price: 60 },
+            { id: 5, image: 'https://i.imgur.com/aTyhxwg.jpeg', en: '60 Roses Bouquet with a Custom Message', ar: 'باقة 60 وردة مع كتابة مخصّصة', price: 70 },
+            { id: 6, image: 'https://i.imgur.com/DsZ29QD.jpeg', en: '100 Roses Bouquet', ar: 'باقة من 100 وردة', price: 100 },
+            { id: 7, image: 'https://i.imgur.com/rQ5uMap.jpeg', en: 'Medium Mixed Flower Box', ar: 'بوكس ورد مشكّل بحجم وسط', price: 80 },
+            { id: 8, image: 'https://i.imgur.com/0qnchvh.jpeg', en: '80 Roses Bouquet', ar: 'باقة من 80 وردة', price: 80 },
+            { id: 9, image: 'https://i.imgur.com/O332zUx.jpeg', en: '60 Roses Flower Box', ar: 'بوكس يحتوي على 60 وردة', price: 70 },
+            { id: 10, image: 'https://i.imgur.com/MWZHHxd.jpeg', en: '15 Lilies with 10 Roses', ar: 'باقة من 15 حبة ليلي مع 10 وردات', price: 60 },
+            { id: 11, image: 'https://i.imgur.com/HAnzoq4.jpeg', en: 'Custom Floral Arrangement', ar: 'تنسيق ورد مميز', price: 80 }
+        ];
+
+        // NEW 19 SHOWROOM IMAGES - Just for display (NO names, NO prices)
+        const showroomImages = [
+            'https://i.imgur.com/pPwT8HU.jpeg',
+            'https://i.imgur.com/65triWN.jpeg',
+            'https://i.imgur.com/di3XWaV.jpeg',
+            'https://i.imgur.com/9vprujP.jpeg',
+            'https://i.imgur.com/LAiWi39.jpeg',
+            'https://i.imgur.com/zOF0tph.jpeg',
+            'https://i.imgur.com/29XLVLP.jpeg',
+            'https://i.imgur.com/Zvb3Pyk.jpeg',
+            'https://i.imgur.com/Z5ePUNV.jpeg',
+            'https://i.imgur.com/57ZdNc0.jpeg',
+            'https://i.imgur.com/lbVKE0x.jpeg',
+            'https://i.imgur.com/bUGsSIh.jpeg',
+            'https://i.imgur.com/ZuyA7Qz.jpeg',
+            'https://i.imgur.com/eSLwzFi.jpeg',
+            'https://i.imgur.com/8ZxYSOJ.jpeg',
+            'https://i.imgur.com/f592qV1.jpeg',
+            'https://i.imgur.com/EMa9Gf1.jpeg',
+            'https://i.imgur.com/IMx2o5z.jpeg',
+            'https://i.imgur.com/wKpEUfV.jpeg'
         ];
 
         // Language State
@@ -1330,25 +1387,39 @@
             }, 1200);
 
             renderProducts();
+            renderShowroom();
             initScrollAnimations();
             initScrollProgress();
             initBackToTop();
             initNavbarScroll();
         });
 
-        // Render Products in Special Showcase Layout
+        // Render Products with TRUE names and prices
         function renderProducts() {
-            const showcase = document.getElementById('productsShowcase');
-            showcase.innerHTML = products.map((p, i) => `
-                <div class="product-item reveal" style="transition-delay: ${i * 0.05}s">
-                    <div class="product-visual">
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map((p, i) => `
+                <div class="product-card reveal" style="transition-delay: ${i * 0.1}s">
+                    <div class="product-image">
                         <img src="${p.image}" alt="${p.en}" loading="lazy">
-                        <div class="product-overlay">
-                            <h3 class="product-name" data-en="${p.en}" data-ar="${p.ar}">${p.en}</h3>
-                            <div class="product-price">$${p.price}</div>
-                            <a href="${getWhatsAppLink(p)}" target="_blank" class="product-order-btn" data-en="Order Now" data-ar="اطلب الآن">Order Now</a>
-                        </div>
                     </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-en="${p.en}" data-ar="${p.ar}">${p.en}</h3>
+                        <div class="product-price">$${p.price}</div>
+                        <a href="${getWhatsAppLink(p)}" target="_blank" class="product-btn" data-en="Order Now" data-ar="اطلب الآن">Order Now</a>
+                    </div>
+                </div>
+            `).join('');
+            
+            setTimeout(initScrollAnimations, 100);
+        }
+
+        // Render Showroom (NO names, NO prices - just images)
+        function renderShowroom() {
+            const grid = document.getElementById('showroomGrid');
+            grid.innerHTML = showroomImages.map((img, i) => `
+                <div class="showroom-item reveal" style="transition-delay: ${i * 0.05}s">
+                    <img src="${img}" alt="Design ${i + 1}" loading="lazy">
+                    <div class="showroom-overlay"></div>
                 </div>
             `).join('');
             
@@ -1379,8 +1450,8 @@
             });
 
             // Update product WhatsApp links
-            document.querySelectorAll('.product-item').forEach((item, i) => {
-                const btn = item.querySelector('.product-order-btn');
+            document.querySelectorAll('.product-card').forEach((card, i) => {
+                const btn = card.querySelector('.product-btn');
                 if (btn && products[i]) {
                     btn.href = getWhatsAppLink(products[i]);
                 }
@@ -1453,8 +1524,8 @@
 
         // Update product links periodically
         setInterval(() => {
-            document.querySelectorAll('.product-item').forEach((item, i) => {
-                const btn = item.querySelector('.product-order-btn');
+            document.querySelectorAll('.product-card').forEach((card, i) => {
+                const btn = card.querySelector('.product-btn');
                 if (btn && products[i]) {
                     btn.href = getWhatsAppLink(products[i]);
                 }
