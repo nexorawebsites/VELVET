@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELVET ROSE — Luxury Floral Boutique</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --burgundy: #6B1D3C;
+            --burgundy-dark: #4A1229;
+            --burgundy-light: #8B2D50;
+            --ivory: #FDFBF7;
+            --cream: #F7F3ED;
+            --dusty-rose: #D4A5A5;
+            --dusty-rose-light: #E8C8C8;
+            --muted-green: #7A8B6F;
+            --gold: #C9A96E;
+            --charcoal: #2C2C2C;
+            --warm-gray: #6B6560;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--ivory);
+            color: var(--charcoal);
+            overflow-x: hidden;
+            transition: direction 0.3s ease;
+        }
+
+        body[dir="rtl"] {
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        body[dir="rtl"] .font-serif {
+            font-family: 'Tajawal', serif;
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--burgundy), var(--gold));
+            z-index: 9999;
+            transition: width 0.1s linear;
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--ivory);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-icon {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--dusty-rose-light);
+            border-top-color: var(--burgundy);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loader-text {
+            margin-top: 20px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            color: var(--burgundy);
+            letter-spacing: 3px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        .nav.scrolled {
+            background: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 40px;
+            box-shadow: 0 2px 30px rgba(0,0,0,0.05);
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--burgundy);
+            letter-spacing: 4px;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--charcoal);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0 18px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--burgundy);
+            transition: width 0.3s ease;
+        }
+
+        body[dir="rtl"] .nav-links a::after {
+            left: auto;
+            right: 0;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--burgundy);
+        }
+
+        .lang-switch {
+            background: transparent;
+            border: 1px solid var(--burgundy);
+            color: var(--burgundy);
+            padding: 6px 16px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .lang-switch:hover {
+            background: var(--burgundy);
+            color: white;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 1.5px;
+            background: var(--burgundy);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            inset: 0;
+            background: var(--ivory);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .mobile-nav.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav a {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            color: var(--charcoal);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--burgundy);
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            font-size: 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--burgundy);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 60px;
+            z-index: 2;
+        }
+
+        .hero-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: heroZoom 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+
+        .hero-badge {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.5s;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 56px;
+            font-weight: 400;
+            line-height: 1.1;
+            color: var(--charcoal);
+            margin-bottom: 25px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.8s;
+        }
+
+        .hero-title span {
+            color: var(--burgundy);
+            font-style: italic;
+        }
+
+        .hero-desc {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--warm-gray);
+            max-width: 440px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 1.1s;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 1.4s;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 35px;
+            background: var(--burgundy);
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: 1px solid var(--burgundy);
+        }
+
+        .btn-primary:hover {
+            background: var(--burgundy-dark);
+            border-color: var(--burgundy-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 35px;
+            background: transparent;
+            color: var(--burgundy);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: 1px solid var(--burgundy);
+        }
+
+        .btn-secondary:hover {
+            background: var(--burgundy);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 35px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: 1px solid #25D366;
+        }
+
+        .btn-whatsapp:hover {
+            background: #1da851;
+            border-color: #1da851;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 120px 60px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            font-weight: 400;
+            color: var(--charcoal);
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 15px;
+            color: var(--warm-gray);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* About Section */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            align-items: center;
+            background: var(--cream);
+        }
+
+        .about-image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .about-image-grid img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .about-image-grid img:hover {
+            transform: scale(1.03);
+        }
+
+        .about-image-grid img:first-child {
+            grid-column: 1 / -1;
+            height: 200px;
+        }
+
+        .about-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            font-weight: 400;
+            color: var(--charcoal);
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .about-content p {
+            font-size: 16px;
+            line-height: 2;
+            color: var(--warm-gray);
+            margin-bottom: 25px;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            background: white;
+            transition: all 0.4s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.08);
+        }
+
+        .product-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(107, 29, 60, 0);
+            transition: background 0.4s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 25px;
+        }
+
+        .product-card:hover .product-overlay {
+            background: rgba(107, 29, 60, 0.15);
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--charcoal);
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 18px;
+            color: var(--burgundy);
+            font-weight: 500;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .product-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 25px;
+            background: transparent;
+            color: var(--burgundy);
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid var(--burgundy);
+            transition: all 0.3s ease;
+        }
+
+        .product-btn:hover {
+            background: var(--burgundy);
+            color: white;
+        }
+
+        /* Custom Design Section */
+        .custom-design {
+            position: relative;
+            min-height: 600px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--burgundy-dark);
+            overflow: hidden;
+        }
+
+        .custom-design-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--burgundy-dark) 0%, var(--burgundy) 100%);
+            opacity: 0.95;
+        }
+
+        .custom-design-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .custom-design-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .custom-design-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px;
+            color: white;
+            z-index: 2;
+        }
+
+        .custom-design-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 400;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+
+        .custom-design-content p {
+            font-size: 16px;
+            line-height: 2;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 40px;
+            max-width: 450px;
+        }
+
+        .btn-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 40px;
+            background: white;
+            color: var(--burgundy);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn-custom:hover {
+            background: var(--cream);
+            transform: translateY(-2px);
+        }
+
+        /* Why Choose Section */
+        .why-choose {
+            background: var(--cream);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 25px;
+            background: white;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 25px;
+            border: 1px solid var(--dusty-rose);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--burgundy);
+            font-size: 24px;
+        }
+
+        .feature-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--charcoal);
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: var(--warm-gray);
+            line-height: 1.7;
+        }
+
+        /* Occasions */
+        .occasions {
+            background: var(--ivory);
+        }
+
+        .occasions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .occasion-card {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            cursor: pointer;
+            background: var(--burgundy);
+        }
+
+        .occasion-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: all 0.6s ease;
+        }
+
+        .occasion-card:hover img {
+            transform: scale(1.1);
+            opacity: 0.4;
+        }
+
+        .occasion-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .occasion-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .occasion-line {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            margin-top: 15px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--cream);
+            text-align: center;
+        }
+
+        .contact-info {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            margin-bottom: 30px;
+        }
+
+        .contact-label {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .contact-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            color: var(--charcoal);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--charcoal);
+            color: white;
+            padding: 80px 60px 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            color: var(--dusty-rose);
+        }
+
+        .footer-desc {
+            font-size: 14px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.6);
+            max-width: 300px;
+        }
+
+        .footer-heading {
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        .footer-links a {
+            display: block;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--dusty-rose);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* Floating WhatsApp */
+        .float-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 5px 25px rgba(37, 211, 102, 0.4);
+            z-index: 900;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        body[dir="rtl"] .float-whatsapp {
+            right: auto;
+            left: 30px;
+        }
+
+        .float-whatsapp:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 5px 25px rgba(37, 211, 102, 0.4); }
+            50% { box-shadow: 0 5px 35px rgba(37, 211, 102, 0.6); }
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background: var(--burgundy);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            z-index: 899;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        body[dir="rtl"] .back-to-top {
+            right: auto;
+            left: 30px;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--burgundy-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Animations on Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .hero-image img {
+                animation: none;
+            }
+            .float-whatsapp {
+                animation: none;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero { grid-template-columns: 1fr; min-height: auto; }
+            .hero-image { height: 400px; }
+            .hero-content { padding: 100px 40px; }
+            .hero-title { font-size: 42px; }
+            .about { grid-template-columns: 1fr; gap: 50px; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .custom-design { grid-template-columns: 1fr; }
+            .custom-design-image { height: 300px; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .occasions-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+            .section { padding: 80px 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav { padding: 15px 20px; }
+            .nav.scrolled { padding: 12px 20px; }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: flex; }
+            .hero-content { padding: 100px 25px; }
+            .hero-title { font-size: 36px; }
+            .hero-desc { font-size: 14px; }
+            .hero-buttons { flex-direction: column; }
+            .btn-primary, .btn-secondary, .btn-whatsapp { width: 100%; justify-content: center; }
+            .section { padding: 60px 25px; }
+            .section-title { font-size: 32px; }
+            .products-grid { grid-template-columns: 1fr; gap: 30px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .occasions-grid { grid-template-columns: 1fr; }
+            .custom-design-content { padding: 50px 25px; }
+            .custom-design-content h2 { font-size: 32px; }
+            .about-image-grid { grid-template-columns: 1fr; }
+            .about-image-grid img { height: 200px; }
+            .footer { padding: 60px 25px 30px; }
+            .float-whatsapp { bottom: 20px; right: 20px; width: 55px; height: 55px; }
+            body[dir="rtl"] .float-whatsapp { right: auto; left: 20px; }
+            .back-to-top { bottom: 85px; right: 20px; }
+            body[dir="rtl"] .back-to-top { right: auto; left: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-icon"></div>
+        <div class="loader-text" data-en="VELVET ROSE" data-ar="فيليت روز">VELVET ROSE</div>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <a href="#" class="nav-logo">VELVET ROSE</a>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" data-en="Home" data-ar="الرئيسية">Home</a>
+            <a href="#about" data-en="About" data-ar="عن المتجر">About</a>
+            <a href="#collection" data-en="Collection" data-ar="المجموعة">Collection</a>
+            <a href="#custom" data-en="Custom Design" data-ar="تصميم مخصص">Custom Design</a>
+            <a href="#contact" data-en="Contact" data-ar="تواصل معنا">Contact</a>
+        </div>
+        <button class="lang-switch" id="langSwitch" onclick="toggleLanguage()">العربية</button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" onclick="toggleMobileMenu()">×</button>
+        <a href="#home" onclick="toggleMobileMenu()" data-en="Home" data-ar="الرئيسية">Home</a>
+        <a href="#about" onclick="toggleMobileMenu()" data-en="About" data-ar="عن المتجر">About</a>
+        <a href="#collection" onclick="toggleMobileMenu()" data-en="Collection" data-ar="المجموعة">Collection</a>
+        <a href="#custom" onclick="toggleMobileMenu()" data-en="Custom Design" data-ar="تصميم مخصص">Custom Design</a>
+        <a href="#contact" onclick="toggleMobileMenu()" data-en="Contact" data-ar="تواصل معنا">Contact</a>
+        <a href="https://wa.me/96178862543" target="_blank" data-en="Order on WhatsApp" data-ar="اطلب عبر واتساب">Order on WhatsApp</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge" data-en="Luxury Floral Boutique" data-ar="بوتيكي زهور فاخر">Luxury Floral Boutique</div>
+            <h1 class="hero-title">
+                <span data-en="Every Flower" data-ar="لكل وردة">Every Flower</span>
+                <span data-en="Tells a Story" data-ar="حكاية">Tells a Story</span>
+            </h1>
+            <p class="hero-desc" data-en="For every moment that deserves to be remembered, we craft floral masterpieces that speak the language of the heart." data-ar="لكل لحظة تستحق أن تُنسى، نصنع روائع من الزهور تتحدث بلغة القلب.">For every moment that deserves to be remembered, we craft floral masterpieces that speak the language of the heart.</p>
+            <div class="hero-buttons">
+                <a href="#collection" class="btn-primary" data-en="Explore Our Collection" data-ar="استكشف مجموعتنا">Explore Our Collection</a>
+                <a href="https://wa.me/96178862543" target="_blank" class="btn-whatsapp" data-en="Order on WhatsApp" data-ar="اطلب عبر واتساب">Order on WhatsApp</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://i.imgur.com/duY25QF.jpeg" alt="Luxury Flowers">
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="about-image-grid reveal">
+            <img src="https://i.imgur.com/duY25QF.jpeg" alt="Flowers">
+            <img src="https://i.imgur.com/rQ5uMap.jpeg" alt="Flowers">
+            <img src="https://i.imgur.com/zK40gZt.jpeg" alt="Flowers">
+        </div>
+        <div class="about-content reveal">
+            <div class="section-label" data-en="About Us" data-ar="من نحن">About Us</div>
+            <h2 data-en="The Art of Floral Elegance" data-ar="فن الأناقة الزهرية">The Art of Floral Elegance</h2>
+            <p data-en="At VELVET ROSE, we believe flowers are more than beautiful arrangements. They are expressions of love, appreciation, celebration, and unforgettable moments. Every bouquet is an opportunity to turn an ordinary day into something extraordinary." data-ar="في VELVET ROSE، نؤمن أن الورود ليست مجرد تنسيقات جميلة، بل هي لغة تعبّر عن الحب والتقدير والفرح وأجمل اللحظات. كل باقة نصنعها تحمل إحساسًا خاصًا وتحوّل اللحظات العادية إلى ذكريات لا تُنسى.">At VELVET ROSE, we believe flowers are more than beautiful arrangements. They are expressions of love, appreciation, celebration, and unforgettable moments. Every bouquet is an opportunity to turn an ordinary day into something extraordinary.</p>
+            <p data-en="Our passion for perfection drives us to select only the finest blooms, crafting each arrangement with meticulous attention to detail, color harmony, and emotional resonance." data-ar="شغفنا بالكمال يدفعنا لاختيار أجود الزهور، حيث نصنع كل تنسيق بعناية فائقة بالتفاصيل وتناسق الألوان والتأثير العاطفي.">Our passion for perfection drives us to select only the finest blooms, crafting each arrangement with meticulous attention to detail, color harmony, and emotional resonance.</p>
+        </div>
+    </section>
+
+    <!-- Collection Section -->
+    <section class="section" id="collection">
+        <div class="section-header reveal">
+            <div class="section-label" data-en="Our Collection" data-ar="مجموعتنا">Our Collection</div>
+            <h2 class="section-title" data-en="Handcrafted with Love" data-ar="مصنوعة بحبّ وعناية">Handcrafted with Love</h2>
+            <p class="section-subtitle" data-en="Each arrangement is a unique creation, designed to bring beauty and emotion to your special moments." data-ar="كل تنسيق هو إبداع فريد، صمم ليحمل الجمال والعاطفة إلى لحظاتك المميزة.">Each arrangement is a unique creation, designed to bring beauty and emotion to your special moments.</p>
+        </div>
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Custom Design Section -->
+    <section class="custom-design" id="custom">
+        <div class="custom-design-bg"></div>
+        <div class="custom-design-image">
+            <img src="https://i.imgur.com/duY25QF.jpeg" alt="Custom Flowers">
+        </div>
+        <div class="custom-design-content reveal">
+            <div class="section-label" data-en="Your Vision, Our Craft" data-ar="رؤيتك، إبداعنا">Your Vision, Our Craft</div>
+            <h2 data-en="Dream It. Send It. We'll Create It." data-ar="تخيّل التصميم، أرسله إلينا، ونحن ننفّذه!">Dream It. Send It. We'll Create It.</h2>
+            <p data-en="Fell in love with a floral design you saw somewhere? Send it to us! Whether it's an inspiration from Pinterest, Instagram, or your own imagination, we can create a custom arrangement just for you. Your imagination is our inspiration." data-ar="أعجبك تصميم ورد رأيته على الإنترنت؟ أرسله إلينا! سواء وجدته على Pinterest أو Instagram أو كان من وحي خيالك، يمكننا تنفيذ أي تصميم تختاره خصيصًا لك. ذوقك هو مصدر إلهامنا!">Fell in love with a floral design you saw somewhere? Send it to us! Whether it's an inspiration from Pinterest, Instagram, or your own imagination, we can create a custom arrangement just for you. Your imagination is our inspiration.</p>
+            <a href="https://wa.me/96178862543?text=Hello%20VELVET%20ROSE!%20I%20would%20like%20to%20order%20a%20custom%20floral%20arrangement.%20Let%20me%20share%20my%20inspiration%20with%20you." target="_blank" class="btn-custom" data-en="Create My Custom Bouquet" data-ar="اطلب تنسيقك الخاص">Create My Custom Bouquet</a>
+        </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section class="section why-choose">
+        <div class="section-header reveal">
+            <div class="section-label" data-en="Why Choose Us" data-ar="لماذا تختارنا">Why Choose Us</div>
+            <h2 class="section-title" data-en="The VELVET ROSE Difference" data-ar="ما يميز VELVET ROSE">The VELVET ROSE Difference</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card reveal">
+                <div class="feature-icon">✦</div>
+                <h3 class="feature-title" data-en="Thoughtfully Designed" data-ar="تصاميم مدروسة">Thoughtfully Designed</h3>
+                <p class="feature-desc" data-en="Every arrangement is crafted with artistic vision and meticulous attention to color, texture, and composition." data-ar="كل تنسيق يتم صنعه برؤية فنية واهتمام دقيق باللون والملمس والتكوين.">Every arrangement is crafted with artistic vision and meticulous attention to color, texture, and composition.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon">✿</div>
+                <h3 class="feature-title" data-en="Personalized Creations" data-ar="إبداعات شخصية">Personalized Creations</h3>
+                <p class="feature-desc" data-en="We create bespoke arrangements tailored to your unique preferences, occasions, and emotional intentions." data-ar="نحن نصنع تنسيقات مخصصة وفقًا لتفضيلاتك الفريدة ومناسباتك ومشاعرك.">We create bespoke arrangements tailored to your unique preferences, occasions, and emotional intentions.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon">❀</div>
+                <h3 class="feature-title" data-en="Beautifully Presented" data-ar="تقديم أنيق">Beautifully Presented</h3>
+                <p class="feature-desc" data-en="Premium packaging and presentation ensure your flowers arrive as beautifully as when they were crafted." data-ar="التغليف والتpresentation المتميز يضمن وصول ورودك بنفس الجمال الذي صُنعت به.">Premium packaging and presentation ensure your flowers arrive as beautifully as when they were crafted.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon">✾</div>
+                <h3 class="feature-title" data-en="Special Moments" data-ar="لحظات خاصة">Special Moments</h3>
+                <p class="feature-desc" data-en="From intimate gestures to grand celebrations, we make every occasion unforgettable with our floral artistry." data-ar="من اللحظات الحميمة إلى الاحتفالات الكبيرة، نجعل كل مناسبة لا تُنسى بإبداعنا الزهري.">From intimate gestures to grand celebrations, we make every occasion unforgettable with our floral artistry.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Occasions Section -->
+    <section class="section occasions">
+        <div class="section-header reveal">
+            <div class="section-label" data-en="For Every Occasion" data-ar="لكل مناسبة">For Every Occasion</div>
+            <h2 class="section-title" data-en="Celebrate with Flowers" data-ar="احتفل مع الزهور">Celebrate with Flowers</h2>
+        </div>
+        <div class="occasions-grid">
+            <div class="occasion-card reveal">
+                <img src="https://i.imgur.com/nKC622m.jpeg" alt="Birthdays">
+                <div class="occasion-content">
+                    <h3 class="occasion-title" data-en="Birthdays" data-ar="أعياد الميلاد">Birthdays</h3>
+                    <div class="occasion-line"></div>
+                </div>
+            </div>
+            <div class="occasion-card reveal">
+                <img src="https://i.imgur.com/DsZ29QD.jpeg" alt="Anniversaries">
+                <div class="occasion-content">
+                    <h3 class="occasion-title" data-en="Anniversaries" data-ar="الذكرى السنوية">Anniversaries</h3>
+                    <div class="occasion-line"></div>
+                </div>
+            </div>
+            <div class="occasion-card reveal">
+                <img src="https://i.imgur.com/lfp1p7n.jpeg" alt="Weddings">
+                <div class="occasion-content">
+                    <h3 class="occasion-title" data-en="Weddings" data-ar="الأعراس">Weddings</h3>
+                    <div class="occasion-line"></div>
+                </div>
+            </div>
+            <div class="occasion-card reveal">
+                <img src="https://i.imgur.com/MWZHHxd.jpeg" alt="Romantic">
+                <div class="occasion-content">
+                    <h3 class="occasion-title" data-en="Romantic Surprises" data-ar="مفاجآت رومانسية">Romantic Surprises</h3>
+                    <div class="occasion-line"></div>
+                </div>
+            </div>
+            <div class="occasion-card reveal">
+                <img src="https://i.imgur.com/0qnchvh.jpeg" alt="Graduations">
+                <div class="occasion-content">
+                    <h3 class="occasion-title" data-en="Graduations" data-ar="حفلات التخرج">Graduations</h3>
+                    <div class="occasion-line"></div>
+                </div>
+            </div>
+            <div class="occasion-card reveal">
+                <img src="https://i.imgur.com/aTyhxwg.jpeg" alt="Special">
+                <div class="occasion-content">
+                    <h3 class="occasion-title" data-en="Special Celebrations" data-ar="احتفالات مميزة">Special Celebrations</h3>
+                    <div class="occasion-line"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="section-header reveal">
+            <div class="section-label" data-en="Get in Touch" data-ar="تواصل معنا">Get in Touch</div>
+            <h2 class="section-title" data-en="Let's Create Something Beautiful" data-ar="لنصنع شيئًا جميلًا معًا">Let's Create Something Beautiful</h2>
+        </div>
+        <div class="contact-info reveal">
+            <div class="contact-item">
+                <div class="contact-label" data-en="WhatsApp" data-ar="واتساب">WhatsApp</div>
+                <div class="contact-value">+961 78 862 543</div>
+            </div>
+            <a href="https://wa.me/96178862543" target="_blank" class="btn-whatsapp" data-en="Send Us a Message on WhatsApp" data-ar="أرسل لنا رسالة عبر واتساب">Send Us a Message on WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">VELVET ROSE</div>
+                <p class="footer-desc" data-en="Crafting luxury floral arrangements for life's most beautiful moments. Every bouquet tells a story." data-ar="نصنع تنسيقات زهور فاخرة لأجمل لحظات الحياة. كل باقة تحكي قصة.">Crafting luxury floral arrangements for life's most beautiful moments. Every bouquet tells a story.</p>
+            </div>
+            <div>
+                <div class="footer-heading" data-en="Quick Links" data-ar="روابط سريعة">Quick Links</div>
+                <div class="footer-links">
+                    <a href="#home" data-en="Home" data-ar="الرئيسية">Home</a>
+                    <a href="#about" data-en="About" data-ar="عن المتجر">About</a>
+                    <a href="#collection" data-en="Collection" data-ar="المجموعة">Collection</a>
+                    <a href="#custom" data-en="Custom Design" data-ar="تصميم مخصص">Custom Design</a>
+                    <a href="#contact" data-en="Contact" data-ar="تواصل معنا">Contact</a>
+                </div>
+            </div>
+            <div>
+                <div class="footer-heading" data-en="Order Now" data-ar="اطلب الآن">Order Now</div>
+                <div class="footer-links">
+                    <a href="https://wa.me/96178862543" target="_blank" data-en="WhatsApp Order" data-ar="طلب عبر واتساب">WhatsApp Order</a>
+                    <a href="#" onclick="toggleLanguage()" data-en="العربية" data-ar="English">العربية</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-en="© 2026 VELVET ROSE. All rights reserved." data-ar="© 2026 VELVET ROSE. جميع الحقوق محفوظة.">© 2026 VELVET ROSE. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/96178862543" target="_blank" class="float-whatsapp">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Products Data
+        const products = [
+            { id: 1, image: 'https://i.imgur.com/duY25QF.jpeg', en: '200 Natural Roses with Gypsophila', ar: '200 وردة طبيعية مع الجيبسوفيلا', price: 230 },
+            { id: 2, image: 'https://i.imgur.com/lfp1p7n.jpeg', en: '60 Natural Roses with a Letter', ar: '60 وردة طبيعية مع حرف', price: 70 },
+            { id: 3, image: 'https://i.imgur.com/nKC622m.jpeg', en: 'Flower Bouquet with Gypsophila, Lilies & Chrysanthemums', ar: 'باقة ورد مع الجيبسوفيلا والليلي والكريزانتيم', price: 60 },
+            { id: 4, image: 'https://i.imgur.com/zK40gZt.jpeg', en: '50 Colorful Roses Bouquet', ar: 'باقة من 50 وردة ملوّنة', price: 60 },
+            { id: 5, image: 'https://i.imgur.com/aTyhxwg.jpeg', en: '60 Roses Bouquet with a Custom Message', ar: 'باقة 60 وردة مع كتابة مخصّصة', price: 70 },
+            { id: 6, image: 'https://i.imgur.com/DsZ29QD.jpeg', en: '100 Roses Bouquet', ar: 'باقة من 100 وردة', price: 100 },
+            { id: 7, image: 'https://i.imgur.com/rQ5uMap.jpeg', en: 'Medium Mixed Flower Box', ar: 'بوكس ورد مشكّل بحجم وسط', price: 80 },
+            { id: 8, image: 'https://i.imgur.com/0qnchvh.jpeg', en: '80 Roses Bouquet', ar: 'باقة من 80 وردة', price: 80 },
+            { id: 9, image: 'https://i.imgur.com/O332zUx.jpeg', en: '60 Roses Flower Box', ar: 'بوكس يحتوي على 60 وردة', price: 70 },
+            { id: 10, image: 'https://i.imgur.com/MWZHHxd.jpeg', en: '15 Lilies with 10 Roses', ar: 'باقة من 15 حبة ليلي مع 10 وردات', price: 60 },
+            { id: 11, image: 'https://i.imgur.com/HAnzoq4.jpeg', en: 'Custom Floral Arrangement', ar: 'تنسيق ورد مميز', price: 80 }
+        ];
+
+        // Language State
+        let currentLang = 'en';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+
+            renderProducts();
+            initScrollAnimations();
+            initScrollProgress();
+            initBackToTop();
+            initNavbarScroll();
+        });
+
+        // Render Products
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map((p, i) => `
+                <div class="product-card reveal" style="transition-delay: ${i * 0.1}s">
+                    <div class="product-image">
+                        <img src="${p.image}" alt="${p.en}" loading="lazy">
+                        <div class="product-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-en="${p.en}" data-ar="${p.ar}">${p.en}</h3>
+                        <div class="product-price">$${p.price}</div>
+                        <a href="${getWhatsAppLink(p)}" target="_blank" class="product-btn" data-en="Order Now" data-ar="اطلب الآن">Order Now</a>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Re-attach observers for new elements
+            setTimeout(initScrollAnimations, 100);
+        }
+
+        // Generate WhatsApp Link
+        function getWhatsAppLink(product) {
+            const name = currentLang === 'en' ? product.en : product.ar;
+            const msg = currentLang === 'en'
+                ? `Hello VELVET ROSE! I would like to order: ${name} ($${product.price}). Please confirm availability.`
+                : `مرحبًا VELVET ROSE! أود طلب: ${name} ($${product.price}). يرجى تأكيد التوفر.`;
+            return `https://wa.me/96178862543?text=${encodeURIComponent(msg)}`;
+        }
+
+        // Language Toggle
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('langSwitch').textContent = currentLang === 'en' ? 'العربية' : 'English';
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-en]').forEach(el => {
+                const text = el.getAttribute(`data-${currentLang}`);
+                if (text) el.textContent = text;
+            });
+
+            // Update product WhatsApp links
+            document.querySelectorAll('.product-card').forEach((card, i) => {
+                const btn = card.querySelector('.product-btn');
+                if (btn && products[i]) {
+                    btn.href = getWhatsAppLink(products[i]);
+                }
+            });
+
+            // Update custom design link
+            const customMsg = currentLang === 'en'
+                ? 'Hello VELVET ROSE! I would like to order a custom floral arrangement. Let me share my inspiration with you.'
+                : 'مرحبًا VELVET ROSE! أود طلب تنسيق ورد مخصص. دعني أشارككم الإلهام الخاص بي.';
+            document.querySelector('.btn-custom').href = `https://wa.me/96178862543?text=${encodeURIComponent(customMsg)}`;
+        }
+
+        // Scroll Progress
+        function initScrollProgress() {
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = (scrollTop / docHeight) * 100;
+                document.getElementById('scrollProgress').style.width = progress + '%';
+            });
+        }
+
+        // Back to Top
+        function initBackToTop() {
+            window.addEventListener('scroll', () => {
+                const btn = document.getElementById('backToTop');
+                if (window.scrollY > 500) {
+                    btn.classList.add('visible');
+                } else {
+                    btn.classList.remove('visible');
+                }
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Navbar Scroll Effect
+        function initNavbarScroll() {
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // Mobile Menu
+        function toggleMobileMenu() {
+            document.getElementById('mobileNav').classList.toggle('open');
+        }
+
+        // Scroll Reveal Animations
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Update product links periodically to ensure language sync
+        setInterval(() => {
+            document.querySelectorAll('.product-card').forEach((card, i) => {
+                const btn = card.querySelector('.product-btn');
+                if (btn && products[i]) {
+                    btn.href = getWhatsAppLink(products[i]);
+                }
+            });
+        }, 1000);
+    </script>
+</body>
+</html>
